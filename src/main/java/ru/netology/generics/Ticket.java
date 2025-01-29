@@ -2,7 +2,7 @@ package ru.netology.generics;
 
 import java.util.Objects;
 
-public class Ticket {
+public class Ticket implements Comparable<Ticket> {
 
     private String from;
     private String to;
@@ -16,6 +16,11 @@ public class Ticket {
         this.price = price;
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
+    }
+
+    @Override
+    public int compareTo(Ticket o) {
+        return Integer.compare(this.price, o.price);
     }
 
     public String getFrom() {
@@ -49,5 +54,16 @@ public class Ticket {
     @Override
     public int hashCode() {
         return Objects.hash(from, to, price, timeFrom, timeTo);
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "from='" + from + '\'' +
+                ", to='" + to + '\'' +
+                ", price=" + price +
+                ", timeFrom=" + timeFrom +
+                ", timeTo=" + timeTo +
+                '}';
     }
 }
