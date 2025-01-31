@@ -18,6 +18,7 @@ public class Ticket implements Comparable<Ticket> {
         this.timeTo = timeTo;
     }
 
+//    переопределение метода compareTo для сравнения двух билетов по цене.
     @Override
     public int compareTo(Ticket o) {
         return Integer.compare(this.price, o.price);

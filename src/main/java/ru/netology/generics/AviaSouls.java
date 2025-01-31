@@ -27,10 +27,8 @@ public class AviaSouls {
     public Ticket[] search(String from, String to) {
         Ticket[] result = new Ticket[0];
         for (Ticket ticket : tickets) {
-            if (ticket.getFrom().equals(from)) {
-                if (ticket.getTo().equals(to)) {
-                    result = addToArray(result, ticket);
-                }
+            if (ticket.getFrom().equals(from) && ticket.getTo().equals(to)) {
+                result = addToArray(result, ticket);
             }
         }
         Arrays.sort(result, new TicketTimeComparator());
