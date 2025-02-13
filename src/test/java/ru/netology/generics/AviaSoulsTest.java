@@ -3,7 +3,7 @@ package ru.netology.generics;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 class AviaSoulsTest {
 
@@ -99,7 +99,7 @@ class AviaSoulsTest {
         Assertions.assertArrayEquals(expected, aviaSouls.search("Moscow", "Pskov"));
     }
 
-//    Должен добавлять объекты у которых совпадают значения параметров from и to
+    //    Должен добавлять объекты у которых совпадают значения параметров from и to
     @Test
     public void shouldAddSimilarObjects() {
 
@@ -125,7 +125,7 @@ class AviaSoulsTest {
         Assertions.assertArrayEquals(expected, aviaSouls.search("Moscow", "Pskov"));
     }
 
-//    Добавляет только те объекты, у которых совпадают оба значения параметров- from и to
+    //    Добавляет только те объекты, у которых совпадают оба значения параметров- from и to
     @Test
     public void shouldAddSimilarObjectsPartTwo() {
         AviaSouls aviaSouls = new AviaSouls();
@@ -148,5 +148,83 @@ class AviaSoulsTest {
 
         Ticket[] expected = new Ticket[]{ticket1, ticket5};
         Assertions.assertArrayEquals(expected, aviaSouls.search("Moscow", "Pskov"));
+    }
+
+    // метод search() должен возвращать пустой массив, если не найдено совпадений
+    @Test
+    public void shouldReturnEmptyArray() {
+
+        AviaSouls aviaSouls = new AviaSouls();
+
+        Ticket ticket1 = new Ticket("From", "To", 100, 17, 21);
+        Ticket ticket2 = new Ticket("From", "To", 100, 17, 21);
+        Ticket ticket3 = new Ticket("From", "To", 100, 17, 21);
+        Ticket ticket4 = new Ticket("From", "To", 100, 17, 21);
+
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+        aviaSouls.add(ticket4);
+
+        Ticket[] actual = aviaSouls.search("Moscow", "Spb");
+
+        Assertions.assertEquals(0, actual.length);
+    }
+
+    //    метод search() должен возвращать массив из одинаковых элементов при полном совпадении
+    @Test
+    public void shouldReturnArrayWithSimilarObjects() {
+
+        AviaSouls aviaSouls = new AviaSouls();
+
+        Ticket ticket1 = new Ticket("From", "To", 100, 17, 21);
+        Ticket ticket2 = new Ticket("From", "To", 100, 17, 21);
+        Ticket ticket3 = new Ticket("From", "To", 100, 17, 21);
+        Ticket ticket4 = new Ticket("Moscow", "Spb", 100, 17, 21);
+        Ticket ticket5 = new Ticket("Spb", "Moscow", 100, 17, 21);
+        Ticket ticket6 = new Ticket("To", "From", 100, 17, 21);
+        Ticket ticket7 = new Ticket("From", "From", 100, 17, 21);
+        Ticket ticket8 = new Ticket("To", "To", 100, 17, 21);
+
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+        aviaSouls.add(ticket4);
+        aviaSouls.add(ticket5);
+        aviaSouls.add(ticket6);
+        aviaSouls.add(ticket7);
+        aviaSouls.add(ticket8);
+
+        Ticket[] expected = new Ticket[]{ticket1, ticket1, ticket1};
+
+        Assertions.assertArrayEquals(expected, aviaSouls.search("From", "To"));
+    }
+
+    //    метод search() должен возвращать массив из одного объекта при совпадении
+    @Test
+    public void shouldReturnArrayWithSingleObject() {
+        AviaSouls aviaSouls = new AviaSouls();
+
+        Ticket ticket1 = new Ticket("From", "To", 100, 17, 21);
+        Ticket ticket2 = new Ticket("From", "To", 100, 17, 21);
+        Ticket ticket3 = new Ticket("From", "To", 100, 17, 21);
+        Ticket ticket4 = new Ticket("Moscow", "Spb", 100, 17, 21);
+        Ticket ticket5 = new Ticket("Spb", "Moscow", 100, 17, 21);
+        Ticket ticket6 = new Ticket("To", "From", 100, 17, 21);
+        Ticket ticket7 = new Ticket("From", "From", 100, 17, 21);
+        Ticket ticket8 = new Ticket("To", "To", 100, 17, 21);
+
+        aviaSouls.add(ticket1);
+        aviaSouls.add(ticket2);
+        aviaSouls.add(ticket3);
+        aviaSouls.add(ticket4);
+        aviaSouls.add(ticket5);
+        aviaSouls.add(ticket6);
+        aviaSouls.add(ticket7);
+        aviaSouls.add(ticket8);
+
+        Ticket[] expected = new Ticket[]{ticket6};
+
+        Assertions.assertArrayEquals(expected, aviaSouls.search("To", "From"));
     }
 }
